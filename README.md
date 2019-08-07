@@ -53,3 +53,6 @@ Visit http://127.0.0.1:3000/api in your browser
 
 This example repo uses the NestJS swagger module for API documentation. [NestJS Swagger](https://github.com/nestjs/swagger) - [www.swagger.io](https://swagger.io/)
 
+## Authors
+
+ **Pejman Hadavi**
