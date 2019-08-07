@@ -43,7 +43,7 @@ The example codebase uses [Mongoose](https://mongoosejs.com/).
 # Authentication
  
 This applications uses JSON Web Token (JWT) to handle authentication.
-This app uses <strong>refresh-Token<strong> mechanism to refresh jsonwebtoken after 30 minutes.
+This app uses <strong>refresh-Token<strong> mechanism</strong> to refresh jsonwebtoken after 30 minutes.
 
 ----------
  
