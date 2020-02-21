@@ -123,7 +123,7 @@ export class UserService {
         await this.resetUserPassword(resetPasswordDto);
         return {
             email: resetPasswordDto.email,
-            message: 'password successfully chenaged.',
+            message: 'password successfully changed.',
         };
     }
     // ┌─┐┬─┐┌┬┐┌─┐┌─┐┌┬┐┌─┐┌┬┐  ┌─┐┌─┐┬─┐┬  ┬┬┌─┐┌─┐
