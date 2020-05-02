@@ -24,15 +24,15 @@ export class ArticleService {
     // ┌─┐┌─┐┌┬┐  ┌─┐┬  ┬    ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐┌─┐
     // │ ┬├┤  │   ├─┤│  │    ├─┤├┬┘ │ ││  │  ├┤ └─┐
     // └─┘└─┘ ┴   ┴ ┴┴─┘┴─┘  ┴ ┴┴└─ ┴ ┴└─┘┴─┘└─┘└─┘
-    async getAllArticles() {
+    async getAllArticles(): Promise<any> {
         return await this.articleModel.find({});
     }
 
     // ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐  ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐
     // │ ┬├┤  │   │ ││││├┤   ├─┤├┬┘ │ ││  │  ├┤ 
     // └─┘└─┘ ┴   └─┘┘└┘└─┘  ┴ ┴┴└─ ┴ ┴└─┘┴─┘└─┘
-    async getOneArticle() {
-        return;
+    async getOneArticle(id: string): Promise<Article> {
+        return await this.articleModel.findById(id);
     }
 
     // ┬ ┬┌─┐┌┬┐┌─┐┌┬┐┌─┐  ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐    ┌─┐┬  ┬    ┌─┐┌─┐┬─┐┌─┐┌┬┐┌─┐  

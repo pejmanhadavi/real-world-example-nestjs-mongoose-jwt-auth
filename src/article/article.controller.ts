@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Patch, Delete, Body, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Patch, Delete, Body, Param, HttpCode, HttpStatus } from '@nestjs/common';
 import {
     ApiCreatedResponse,
     ApiOkResponse,
@@ -6,6 +6,7 @@ import {
     ApiBearerAuth,
     ApiImplicitHeader,
     ApiOperation,
+    ApiImplicitParam,
 } from '@nestjs/swagger';
 
 import { ArticleService } from './article.service';
@@ -29,9 +30,10 @@ export class ArticleController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Get One article',})
+    @ApiImplicitParam({name: 'id', description: 'id of article'})
     @ApiOkResponse({})
-    async getAllArticles() {
-        return 'get all articles';
+    async getAllArticles(@Param() params) {
+        return await this.articleService.getOneArticle(params.id);
     }
 
     @Post()
