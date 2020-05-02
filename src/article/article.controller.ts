@@ -5,7 +5,8 @@ import {
     ApiUseTags,
     ApiBearerAuth,
     ApiImplicitHeader,
-    } from '@nestjs/swagger';
+    ApiOperation,
+} from '@nestjs/swagger';
 
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -16,9 +17,10 @@ export class ArticleController {
     constructor(
         private readonly articleService: ArticleService,
     ) { }
-    
+
     @Get()
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({title: 'Get All article',})
     @ApiOkResponse({})
     async getOneArticle() {
         return 'thisis pejman';
@@ -26,13 +28,15 @@ export class ArticleController {
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({title: 'Get One article',})
     @ApiOkResponse({})
     async getAllArticles() {
         return 'get all articles';
     }
-    
+
     @Post()
     @HttpCode(HttpStatus.CREATED)
+    @ApiOperation({title: 'Create one article',})
     @ApiBearerAuth()
     @ApiImplicitHeader({
         name: 'Bearer',
@@ -46,6 +50,7 @@ export class ArticleController {
 
     @Put()
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({title: 'Update one article by id ( all params )',})
     @ApiBearerAuth()
     @ApiImplicitHeader({
         name: 'Bearer',
@@ -58,6 +63,7 @@ export class ArticleController {
 
     @Patch()
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({title: 'Update one article by id ( partial params )',})
     @ApiBearerAuth()
     @ApiImplicitHeader({
         name: 'Bearer',
@@ -70,6 +76,7 @@ export class ArticleController {
 
     @Delete()
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({title: 'Delete one article',})
     @ApiBearerAuth()
     @ApiImplicitHeader({
         name: 'Bearer',
