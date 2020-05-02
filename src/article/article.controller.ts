@@ -23,7 +23,7 @@ export class ArticleController {
     @ApiOperation({title: 'Get All article',})
     @ApiOkResponse({})
     async getOneArticle() {
-        return 'thisis pejman';
+        return await this.articleService.getAllArticles();
     }
 
     @Get(':id')
