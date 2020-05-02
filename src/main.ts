@@ -1,4 +1,5 @@
 import { UserModule } from './user/user.module';
+import { ArticleModule } from './article/article.module';
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -28,6 +29,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options, {
     include: [
       UserModule,
+      ArticleModule,
   ],
   });
   SwaggerModule.setup('api', app, document);
