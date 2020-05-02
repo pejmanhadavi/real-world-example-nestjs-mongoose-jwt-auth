@@ -44,7 +44,7 @@ export class ArticleController {
     })
     @ApiCreatedResponse({})
     async createArticle(@Body() createArticleDto: CreateArticleDto) {
-        return;
+        return await this.articleService.createArticle(createArticleDto);
     }
 
 
