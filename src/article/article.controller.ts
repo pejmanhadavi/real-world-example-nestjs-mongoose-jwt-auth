@@ -1,13 +1,10 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
 import {
     ApiCreatedResponse,
-    ApiBadRequestResponse,
-    ApiNotFoundResponse,
-    ApiUnauthorizedResponse,
     ApiOkResponse,
-    ApiForbiddenResponse,
     ApiUseTags,
     ApiBearerAuth,
+    ApiImplicitHeader,
     } from '@nestjs/swagger';
 
 import { ArticleService } from './article.service';
@@ -23,8 +20,6 @@ export class ArticleController {
     @Get()
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
-    @ApiBadRequestResponse({})
-    @ApiNotFoundResponse({})
     async getOneArticle() {
         return 'thisis pejman';
     }
@@ -32,7 +27,6 @@ export class ArticleController {
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
-    @ApiNotFoundResponse({})
     async getAllArticles() {
         return 'get all articles';
     }
@@ -40,10 +34,11 @@ export class ArticleController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @ApiBearerAuth()
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
     @ApiCreatedResponse({})
-    @ApiBadRequestResponse({})
-    @ApiUnauthorizedResponse({})
-    @ApiForbiddenResponse({})
     async createArticle(@Body() createArticleDto: CreateArticleDto) {
         return;
     }
@@ -52,10 +47,11 @@ export class ArticleController {
     @Put()
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
     @ApiOkResponse({})
-    @ApiBadRequestResponse({})
-    @ApiUnauthorizedResponse({})
-    @ApiForbiddenResponse({})
     async updateWithAllParams() {
         return 'update with all params';
     }
@@ -63,10 +59,11 @@ export class ArticleController {
     @Patch()
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
     @ApiOkResponse({})
-    @ApiBadRequestResponse({})
-    @ApiUnauthorizedResponse({})
-    @ApiForbiddenResponse({})
     async updateWithPartialParams() {
         return 'update with partial params';
     }
@@ -74,10 +71,11 @@ export class ArticleController {
     @Delete()
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
     @ApiOkResponse({})
-    @ApiBadRequestResponse({})
-    @ApiUnauthorizedResponse({})
-    @ApiForbiddenResponse({})
     async deleteOneArticle() {
         return 'delete one article';
     }

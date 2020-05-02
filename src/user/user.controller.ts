@@ -11,14 +11,10 @@ import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import {
     ApiCreatedResponse,
-    ApiBadRequestResponse,
-    ApiNotFoundResponse,
-    ApiConflictResponse,
-    ApiUnauthorizedResponse,
     ApiOkResponse,
-    ApiForbiddenResponse,
     ApiUseTags,
     ApiBearerAuth,
+    ApiImplicitHeader,
     } from '@nestjs/swagger';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
@@ -35,53 +31,42 @@ export class UserController {
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝╝╚╝ ╩ ╩╚═╝╩ ╩ ╩ ╚═╝
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    @ApiCreatedResponse({description: 'The record has been successfully created.'})
-    @ApiBadRequestResponse({description: 'email address most be unique.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request..'})
+    @ApiCreatedResponse({})
     async register(@Body() createUserDto: CreateUserDto) {
         return await this.userService.create(createUserDto);
     }
 
     @Post('verify-email')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({description: 'User has been successfully verified.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request..'})
+    @ApiOkResponse({})
     async verifyEmail(@Req() req: Request, @Body() verifyUuidDto: VerifyUuidDto) {
         return await this.userService.verifyEmail(req, verifyUuidDto);
     }
 
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({description: 'User has been successfully logged in and tokens generated.'})
-    @ApiNotFoundResponse({description: 'User not found wrong email or password.'})
-    @ApiConflictResponse({description: 'User blocked try later.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
+    @ApiOkResponse({})
     async login(@Req() req: Request, @Body() loginUserDto: LoginUserDto) {
         return await this.userService.login(req, loginUserDto);
     }
 
     @Post('refresh-access-token')
     @HttpCode(HttpStatus.CREATED)
-    @ApiCreatedResponse({description: 'Access token has been generated successfully.'})
-    @ApiUnauthorizedResponse({description: 'User has been Logged out.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
+    @ApiCreatedResponse({})
     async refreshAccessToken(@Body() refreshAccessTokenDto: RefreshAccessTokenDto) {
         return await this.userService.refreshAccessToken(refreshAccessTokenDto);
     }
 
     @Post('forgot-password')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({description: 'Verification has been sent.'})
-    @ApiNotFoundResponse({description: 'User not found.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
+    @ApiOkResponse({})
     async forgotPassword(@Req() req: Request, @Body() createForgotPasswordDto: CreateForgotPasswordDto) {
         return await this.userService.forgotPassword(req, createForgotPasswordDto);
     }
 
     @Post('forgot-password-verify')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({description: 'Now user can reset his/her password.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
+    @ApiOkResponse({})
     async forgotPasswordVerify(@Req() req: Request, @Body() verifyUuidDto: VerifyUuidDto) {
         return await this.userService.forgotPasswordVerify(req, verifyUuidDto);
     }
@@ -89,8 +74,11 @@ export class UserController {
     @Post('reset-password')
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
-    @ApiOkResponse({description: 'Password has been successfully changed.'})
-    @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
+    @ApiOkResponse({})
     async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
         return await this.userService.resetPassword(resetPasswordDto);
     }
@@ -99,10 +87,12 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     @Roles('admin')
     @ApiBearerAuth()
+    @ApiImplicitHeader({
+        name: 'Bearer',
+        description: 'the token we need for auth.'
+    })
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({description: 'Data recieved'})
-    @ApiUnauthorizedResponse({ description: 'Not authorized.'})
-    @ApiForbiddenResponse({description: 'User has not permitted to this api.'})
+    @ApiOkResponse({})
     findAll() {
         return this.userService.findAll();
     }
