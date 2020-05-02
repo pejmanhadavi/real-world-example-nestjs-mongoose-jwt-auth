@@ -52,8 +52,8 @@ export class ArticleService {
     // ┌┬┐┌─┐┬  ┌─┐┌┬┐┌─┐  ┌─┐┌┐┌┌─┐  ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐
     //  ││├┤ │  ├┤  │ ├┤   │ ││││├┤   ├─┤├┬┘ │ ││  │  ├┤ 
     // ─┴┘└─┘┴─┘└─┘ ┴ └─┘  └─┘┘└┘└─┘  ┴ ┴┴└─ ┴ ┴└─┘┴─┘└─┘
-    async deleteArticle() {
-        return;
+    async deleteArticle(id: string): Promise<Article> {
+        return await this.articleModel.findByIdAndDelete(id);
     }
 
     // ********************************************

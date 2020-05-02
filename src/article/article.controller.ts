@@ -23,7 +23,7 @@ export class ArticleController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Get All article',})
     @ApiOkResponse({})
-    async getOneArticle() {
+    async getAllArticle() {
         return await this.articleService.getAllArticles();
     }
 
@@ -32,7 +32,7 @@ export class ArticleController {
     @ApiOperation({title: 'Get One article',})
     @ApiImplicitParam({name: 'id', description: 'id of article'})
     @ApiOkResponse({})
-    async getAllArticles(@Param() params) {
+    async getOneArticles(@Param() params) {
         return await this.articleService.getOneArticle(params.id);
     }
 
@@ -76,7 +76,7 @@ export class ArticleController {
         return 'update with partial params';
     }
 
-    @Delete()
+    @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Delete one article',})
     @ApiBearerAuth()
@@ -84,8 +84,9 @@ export class ArticleController {
         name: 'Bearer',
         description: 'the token we need for auth.'
     })
+    @ApiImplicitParam({name: 'id', description: 'id of article we want to delete.'})
     @ApiOkResponse({})
-    async deleteOneArticle() {
-        return 'delete one article';
+    async deleteOneArticle(@Param() params) {
+        return await this.articleService.deleteArticle(params.id);
     }
 }
