@@ -7,6 +7,7 @@ import {
     ApiOkResponse,
     ApiForbiddenResponse,
     ApiUseTags,
+    ApiBearerAuth,
     } from '@nestjs/swagger';
 
 import { ArticleService } from './article.service';
@@ -18,17 +19,7 @@ export class ArticleController {
     constructor(
         private readonly articleService: ArticleService,
     ) { }
-
-    @Post()
-    @HttpCode(HttpStatus.CREATED)
-    @ApiCreatedResponse({})
-    @ApiBadRequestResponse({})
-    @ApiUnauthorizedResponse({})
-    @ApiForbiddenResponse({})
-    async createArticle(@Body() createArticleDto: CreateArticleDto) {
-        return;
-    }
-
+    
     @Get()
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
@@ -38,16 +29,29 @@ export class ArticleController {
         return 'thisis pejman';
     }
 
-    @Get()
+    @Get(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
     @ApiNotFoundResponse({})
     async getAllArticles() {
         return 'get all articles';
     }
+    
+    @Post()
+    @HttpCode(HttpStatus.CREATED)
+    @ApiBearerAuth()
+    @ApiCreatedResponse({})
+    @ApiBadRequestResponse({})
+    @ApiUnauthorizedResponse({})
+    @ApiForbiddenResponse({})
+    async createArticle(@Body() createArticleDto: CreateArticleDto) {
+        return;
+    }
+
 
     @Put()
     @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
     @ApiOkResponse({})
     @ApiBadRequestResponse({})
     @ApiUnauthorizedResponse({})
@@ -58,6 +62,7 @@ export class ArticleController {
 
     @Patch()
     @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
     @ApiOkResponse({})
     @ApiBadRequestResponse({})
     @ApiUnauthorizedResponse({})
@@ -68,6 +73,7 @@ export class ArticleController {
 
     @Delete()
     @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
     @ApiOkResponse({})
     @ApiBadRequestResponse({})
     @ApiUnauthorizedResponse({})

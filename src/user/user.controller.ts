@@ -18,6 +18,7 @@ import {
     ApiOkResponse,
     ApiForbiddenResponse,
     ApiUseTags,
+    ApiBearerAuth,
     } from '@nestjs/swagger';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
@@ -87,6 +88,7 @@ export class UserController {
 
     @Post('reset-password')
     @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
     @ApiOkResponse({description: 'Password has been successfully changed.'})
     @ApiBadRequestResponse({description: 'Data validation failed or Bad request.'})
     async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
@@ -96,6 +98,7 @@ export class UserController {
     @Get('data')
     @UseGuards(AuthGuard('jwt'))
     @Roles('admin')
+    @ApiBearerAuth()
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({description: 'Data recieved'})
     @ApiUnauthorizedResponse({ description: 'Not authorized.'})
