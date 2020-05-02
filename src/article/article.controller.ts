@@ -64,20 +64,6 @@ export class ArticleController {
         return await this.articleService.updateArticlePut(params.id, createArticleDto);
     }
 
-    @Patch(':id')
-    @HttpCode(HttpStatus.OK)
-    @ApiOperation({title: 'Update one article by id ( partial params )',})
-    @ApiBearerAuth()
-    @ApiImplicitParam({name: 'id', description: 'id of article'})
-    @ApiImplicitHeader({
-        name: 'Bearer',
-        description: 'the token we need for auth.'
-    })
-    @ApiOkResponse({})
-    async updateWithPartialParams(@Param() params) {
-        return await this.articleService.updateArticlePatch(params.id);
-    }
-
     @Delete(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Delete one article',})
