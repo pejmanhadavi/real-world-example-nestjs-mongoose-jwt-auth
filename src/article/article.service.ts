@@ -38,14 +38,14 @@ export class ArticleService {
     // ┬ ┬┌─┐┌┬┐┌─┐┌┬┐┌─┐  ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐    ┌─┐┬  ┬    ┌─┐┌─┐┬─┐┌─┐┌┬┐┌─┐  
     // │ │├─┘ ││├─┤ │ ├┤   ├─┤├┬┘ │ ││  │  ├┤     ├─┤│  │    ├─┘├─┤├┬┘├─┤│││└─┐  
     // └─┘┴  ─┴┘┴ ┴ ┴ └─┘  ┴ ┴┴└─ ┴ ┴└─┘┴─┘└─┘    ┴ ┴┴─┘┴─┘  ┴  ┴ ┴┴└─┴ ┴┴ ┴└─┘  \
-    async updateArticlePut() {
-        return;
+    async updateArticlePut(id: string, createArticleDto: CreateArticleDto): Promise<Article> {
+        return await this.articleModel.updateOne({_id: id}, createArticleDto);
     }
 
     // ┬ ┬┌─┐┌┬┐┌─┐┌┬┐┌─┐  ┌─┐┬─┐┌┬┐┬┌─┐┬  ┌─┐    ┌─┐┌─┐┬─┐┌┬┐┬┌─┐┬    ┌─┐┌─┐┬─┐┌─┐┌┬┐┌─┐  
     // │ │├─┘ ││├─┤ │ ├┤   ├─┤├┬┘ │ ││  │  ├┤     ├─┘├─┤├┬┘ │ │├─┤│    ├─┘├─┤├┬┘├─┤│││└─┐  
     // └─┘┴  ─┴┘┴ ┴ ┴ └─┘  ┴ ┴┴└─ ┴ ┴└─┘┴─┘└─┘    ┴  ┴ ┴┴└─ ┴ ┴┴ ┴┴─┘  ┴  ┴ ┴┴└─┴ ┴┴ ┴└─┘ 
-    async updateArticlePatch() {
+    async updateArticlePatch(id: string) {
         return;
     }
 
@@ -55,10 +55,4 @@ export class ArticleService {
     async deleteArticle(id: string): Promise<Article> {
         return await this.articleModel.findByIdAndDelete(id);
     }
-
-    // ********************************************
-    // ╔═╗╦═╗╦╦  ╦╔═╗╔╦╗╔═╗  ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
-    // ╠═╝╠╦╝║╚╗╔╝╠═╣ ║ ║╣   ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
-    // ╩  ╩╚═╩ ╚╝ ╩ ╩ ╩ ╚═╝  ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
-    // ********************************************
 }

@@ -50,30 +50,32 @@ export class ArticleController {
     }
 
 
-    @Put()
+    @Put(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Update one article by id ( all params )',})
     @ApiBearerAuth()
+    @ApiImplicitParam({name: 'id', description: 'id of article'})
     @ApiImplicitHeader({
         name: 'Bearer',
         description: 'the token we need for auth.'
     })
     @ApiOkResponse({})
-    async updateWithAllParams() {
-        return 'update with all params';
+    async updateWithAllParams(@Param() params, @Body() createArticleDto: CreateArticleDto) {
+        return await this.articleService.updateArticlePut(params.id, createArticleDto);
     }
 
-    @Patch()
+    @Patch(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({title: 'Update one article by id ( partial params )',})
     @ApiBearerAuth()
+    @ApiImplicitParam({name: 'id', description: 'id of article'})
     @ApiImplicitHeader({
         name: 'Bearer',
         description: 'the token we need for auth.'
     })
     @ApiOkResponse({})
-    async updateWithPartialParams() {
-        return 'update with partial params';
+    async updateWithPartialParams(@Param() params) {
+        return await this.articleService.updateArticlePatch(params.id);
     }
 
     @Delete(':id')
