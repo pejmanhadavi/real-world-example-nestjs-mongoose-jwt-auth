@@ -29,7 +29,7 @@
     "@nestjs/swagger": "^3.1.0",
     "bcrypt": "^3.0.6",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.9.1",
+    "class-validator": "^0.14.0",
     "cryptr": "^4.0.2",
     "date-fns": "^1.30.1",
     "dotenv": "^8.0.0",
